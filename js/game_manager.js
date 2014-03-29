@@ -47,7 +47,7 @@ GameManager.prototype.setup = function () {
 
   // Update the actuator
   this.actuate();
-  this.inputManager.updategrid(this.grid);
+  this.inputManager.updateGrid(this.grid, false);      
 };
 
 // Set up the initial tiles to start the game with
@@ -80,7 +80,6 @@ GameManager.prototype.actuate = function () {
     bestScore:  this.scoreManager.get(),
     terminated: this.isGameTerminated()
   });
-
 };
 
 // Save all tile positions and remove merger info
@@ -162,6 +161,7 @@ GameManager.prototype.move = function (direction) {
 
     this.actuate();
   }
+  this.inputManager.updateGrid(this.grid, moved);
 };
 
 // Get the vector representing the chosen direction

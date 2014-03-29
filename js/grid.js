@@ -82,3 +82,31 @@ Grid.prototype.withinBounds = function (position) {
   return position.x >= 0 && position.x < this.size &&
          position.y >= 0 && position.y < this.size;
 };
+
+Grid.prototype.prettyPrint = function () {
+  var asciiArtGrid = "\n";
+  var x = 0, gridContent = [];
+  this.cells.forEach(function (column) {
+    gridContent[x] = [];
+    var y = 0;
+    column.forEach(function (cell) {
+      if (cell) {
+        gridContent[x][y] = cell.value;
+      } else {
+        gridContent[x][y] = " ";
+      }
+      y++
+    });
+    x++;
+  });
+  for (var y = 0; y < gridContent[0].length; y++) {
+    if (asciiArtGrid.length > 0) {
+      asciiArtGrid += "\n";
+    }
+    for (x = 0; x < gridContent.length; x++) {
+      asciiArtGrid += gridContent[x][y] + " \t\t";
+    }
+  }
+  return asciiArtGrid;
+};
+
