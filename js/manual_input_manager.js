@@ -218,11 +218,11 @@ ManualInputManager.prototype.computeMaxFreeBoundaryCellDirection = function (gri
 
 ManualInputManager.prototype.move = function (grid, direction) {
   // 0: up, 1: right, 2:down, 3: left
-
+  var self = this;
   var cell, tile;
 
   var vector     = this.getVector(direction);
-  var traversals = this.buildTraversals(vector);
+  var traversals = this.buildTraversals(grid.size,vector);
   var moved      = false;
 
   // Save the current tile positions and remove merger information
@@ -235,7 +235,7 @@ ManualInputManager.prototype.move = function (grid, direction) {
       tile = grid.cellContent(cell);
 
       if (tile) {
-        var positions = this.findFarthestPosition(grid, cell, vector);
+        var positions = self.findFarthestPosition(grid, cell, vector);
         var next      = grid.cellContent(positions.next);
 
         // Only one merger per row traversal?
@@ -248,10 +248,9 @@ ManualInputManager.prototype.move = function (grid, direction) {
 
           // Converge the two tiles' positions
           tile.updatePosition(positions.next);
-
         } 
         else {
-          grid = this.moveTile(grid, tile, positions.farthest);
+          grid = self.moveTile(grid, tile, positions.farthest);
         }
       }
     });
@@ -268,10 +267,10 @@ ManualInputManager.prototype.moveTile = function (grid, tile, cell) {
 };
 
 // Build a list of positions to traverse in the right order
-ManualInputManager.prototype.buildTraversals = function (vector) {
+ManualInputManager.prototype.buildTraversals = function (size, vector) {
   var traversals = { x: [], y: [] };
 
-  for (var pos = 0; pos < this.size; pos++) {
+  for (var pos = 0; pos < size; pos++) {
     traversals.x.push(pos);
     traversals.y.push(pos);
   }
@@ -313,3 +312,8 @@ ManualInputManager.prototype.findFarthestPosition = function (grid, cell, vector
 ManualInputManager.prototype.positionsEqual = function (first, second) {
   return first.x === second.x && first.y === second.y;
 };
+
+ManualInputManager.prototype.insertTwos = function (gridCopies) {
+
+  return gridCopies;
+}  

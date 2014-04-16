@@ -93,7 +93,7 @@ Grid.prototype.prettyPrint = function () {
       if (cell) {
         gridContent[x][y] = cell.value;
       } else {
-        gridContent[x][y] = " ";
+        gridContent[x][y] = ".";
       }
       y++
     });
@@ -104,7 +104,7 @@ Grid.prototype.prettyPrint = function () {
       asciiArtGrid += "\n";
     }
     for (x = 0; x < gridContent.length; x++) {
-      asciiArtGrid += gridContent[x][y] + " \t\t";
+      asciiArtGrid += gridContent[x][y] + " \t";
     }
   }
   return asciiArtGrid;
